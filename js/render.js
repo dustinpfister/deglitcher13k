@@ -59,8 +59,17 @@ var render = (function () {
             ctx.strokeText('fix', 42, 420);
 
             // self fix bar
+            /*
             ctx.fillStyle = '#00ffff';
             ctx.fillRect(0, 470, 640 * state.selfFixProgress, 10);
+             */
+
+            ctx.fillStyle = 'rgba(0,255,255,.2)';
+            state.selfFix.forEach(function (fix) {
+
+                ctx.fillRect(0, 470, 640 * fix.progress, 10);
+
+            });
 
             ctx.textAlign = 'left';
             ctx.strokeText('wave:' + state.wave, 10, 20);

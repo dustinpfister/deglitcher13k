@@ -11,11 +11,14 @@ var game = (function () {
     // public state
     var pubState = {
 
-        wave : 1,  // wave and glitch are set by setWave helper
+        wave : 1, // wave and glitch are set by setWave helper
         glitch : 0,
 
-        selfFixTime : 1000,
-        selfFixProgress : 0
+        selfFixTime : 20000,
+        selfFixProgress : 0,
+
+        maxSelfFix : 4,
+        selfFix : [],
 
     },
 
@@ -69,17 +72,33 @@ var game = (function () {
         // if you want a job done right, you need to do it yourself.
         fix : (function () {
 
-            var startTime = new Date(0),
-            fixing = false,
+            // self fix constructor
+            var SelfFix = function () {
+
+                this.startTime = new Date();
+                this.fixTime = 10000;
+                this.progress = 0;
+
+            },
+
+            proto = SelfFix.prototype;
+
+            proto.update = function () {
+
+                var now = new Date();
+
+                this.progress = (now - this.startTime) / this.fixTime;
+
+                this.progress = this.progress > 1 ? 1 : this.progress;
+
+            };
 
             // game.fix() will start a new fix if one is not in progress.
-            pub = function () {
+            var pub = function () {
 
-                if (!fixing) {
+                if (pubState.selfFix.length < pubState.maxSelfFix) {
 
-                    fixing = true;
-
-                    startTime = new Date();
+                    pubState.selfFix.push(new SelfFix());
 
                 }
 
@@ -88,30 +107,83 @@ var game = (function () {
             // what to do on each frame tick
             pub.tick = function () {
 
-                var now = new Date();
+                var i = pubState.selfFix.length,
+                selfFix;
+                while (i--) {
 
-                if (fixing) {
+                    selfFix = pubState.selfFix[i];
 
-                    pubState.selfFixProgress = (now - startTime) / pubState.selfFixTime;
+                    selfFix.update();
 
-                    pubState.selfFixProgress = pubState.selfFixProgress > 1 ? 1 : pubState.selfFixProgress;
-
-                    if (pubState.selfFixProgress === 1) {
+                    if (selfFix.progress === 1) {
 
                         pubAPI.deglitch(1);
-                        fixing = false;
-                        pubState.selfFixProgress = 0;
+
+                        // purge
+                        pubState.selfFix.splice(i, 1);
 
                     }
 
                 }
+
             };
 
+            // return public function to game.fix
             return pub;
 
         }
             ()),
 
+        /*
+        // if you want a job done right, you need to do it yourself.
+        fix : (function () {
+
+        var startTime = new Date(0),
+        fixing = false,
+
+        // game.fix() will start a new fix if one is not in progress.
+        pub = function () {
+
+        if (!fixing) {
+
+        fixing = true;
+
+        startTime = new Date();
+
+        }
+
+        };
+
+        // what to do on each frame tick
+        pub.tick = function () {
+
+        var now = new Date();
+
+        if (fixing) {
+
+        pubState.selfFixProgress = (now - startTime) / pubState.selfFixTime;
+
+        pubState.selfFixProgress = pubState.selfFixProgress > 1 ? 1 : pubState.selfFixProgress;
+
+        if (pubState.selfFixProgress === 1) {
+
+        pubAPI.deglitch(1);
+        fixing = false;
+        pubState.selfFixProgress = 0;
+
+        }
+
+        }
+        };
+
+        // return public function to game.fix
+        return pub;
+
+        }
+        ()),
+         */
+
+        // what to do on each frame tick
         update : function () {
 
             this.fix.tick();
@@ -123,6 +195,7 @@ var game = (function () {
     // defaut to wave 1
     setWave(1);
 
+    // return the public API to the game global variable
     return pubAPI;
 
 }
