@@ -14,7 +14,7 @@ var game = (function () {
         wave : 1, // wave and glitch are set by setWave helper
         glitch : 0,
 
-        selfFixMax : 10,
+        selfFixMax : 8,
         selfFixLast : new Date(0),
         selfFixMultiBonus : true,
         selfFixDelay : 300,
@@ -34,6 +34,8 @@ var game = (function () {
     onWin = function () {
 
         pubState.wave += 1;
+
+        pubState.selfFix = [];
 
         setWave(pubState.wave);
 
@@ -56,12 +58,6 @@ var game = (function () {
                 } else {
 
                     pubState.glitch = 0;
-
-                }
-
-                if (pubState.glitch === 0) {
-
-                    onWin();
 
                 }
 
@@ -152,6 +148,12 @@ var game = (function () {
         update : function () {
 
             this.fix.tick();
+
+            if (pubState.glitch === 0) {
+
+                onWin();
+
+            }
 
         }
 
