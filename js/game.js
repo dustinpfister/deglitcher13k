@@ -75,6 +75,8 @@ var game = (function () {
 
                 }
 
+                if(pubState.money > 1000000000){ pubState.money = 1000000000; }
+
             }
 
         },
