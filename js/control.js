@@ -51,7 +51,7 @@ var control = (function () {
 
             if (Shell.boundingBox(pos.x, pos.y, 1, 1, 10, 400, 64, 64)) {
 
-                console.log('fix');
+                game.fix.start();
 
             }
 

@@ -12,7 +12,10 @@ var game = (function () {
     var pubState = {
 
         wave : 1,
-        glitch : 100
+        glitch : 100,
+
+        selfFixTime : 10000,
+        selfFixProgress : 0
 
     },
 
@@ -21,7 +24,57 @@ var game = (function () {
 
         pubState : pubState,
 
-        update : function () {}
+        // if you want a job done right, you need to do it yourself.
+        fix : (function () {
+
+            var startTime = new Date(0),
+            fixing = false;
+
+            return {
+
+                start : function () {
+
+                    if (!fixing) {
+
+                        fixing = true;
+
+                        startTime = new Date();
+
+                    }
+
+                },
+
+                tick : function () {
+
+                    var now = new Date();
+
+                    if (fixing) {
+
+                        pubState.selfFixProgress = (now - startTime) / pubState.selfFixTime;
+
+                        pubState.selfFixProgress = pubState.selfFixProgress > 1 ? 1 : pubState.selfFixProgress;
+
+                        if (pubState.selfFixProgress === 1) {
+
+                            pubState.glitch -= 1;
+                            fixing = false;
+
+                        }
+
+                    }
+
+                }
+
+            };
+
+        }
+            ()),
+
+        update : function () {
+
+            this.fix.tick();
+
+        }
 
     };
 
