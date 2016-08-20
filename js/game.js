@@ -47,45 +47,82 @@ var game = (function () {
         fix : (function () {
 
             var startTime = new Date(0),
-            fixing = false;
+            fixing = false,
 
-            return {
+            pub = function () {
 
-                start : function () {
+                if (!fixing) {
 
-                    if (!fixing) {
+                    fixing = true;
 
-                        fixing = true;
-
-                        startTime = new Date();
-
-                    }
-
-                },
-
-                tick : function () {
-
-                    var now = new Date();
-
-                    if (fixing) {
-
-                        pubState.selfFixProgress = (now - startTime) / pubState.selfFixTime;
-
-                        pubState.selfFixProgress = pubState.selfFixProgress > 1 ? 1 : pubState.selfFixProgress;
-
-                        if (pubState.selfFixProgress === 1) {
-
-                            pubAPI.deglitch(1);
-                            fixing = false;
-                            pubState.selfFixProgress = 0;
-
-                        }
-
-                    }
+                    startTime = new Date();
 
                 }
 
             };
+
+            pub.tick = function () {
+
+                var now = new Date();
+
+                if (fixing) {
+
+                    pubState.selfFixProgress = (now - startTime) / pubState.selfFixTime;
+
+                    pubState.selfFixProgress = pubState.selfFixProgress > 1 ? 1 : pubState.selfFixProgress;
+
+                    if (pubState.selfFixProgress === 1) {
+
+                        pubAPI.deglitch(1);
+                        fixing = false;
+                        pubState.selfFixProgress = 0;
+
+                    }
+
+                }
+            };
+
+            return pub;
+
+            /*
+            return {
+
+            start : function () {
+
+            if (!fixing) {
+
+            fixing = true;
+
+            startTime = new Date();
+
+            }
+
+            },
+
+            tick : function () {
+
+            var now = new Date();
+
+            if (fixing) {
+
+            pubState.selfFixProgress = (now - startTime) / pubState.selfFixTime;
+
+            pubState.selfFixProgress = pubState.selfFixProgress > 1 ? 1 : pubState.selfFixProgress;
+
+            if (pubState.selfFixProgress === 1) {
+
+            pubAPI.deglitch(1);
+            fixing = false;
+            pubState.selfFixProgress = 0;
+
+            }
+
+            }
+
+            }
+
+            };
+             */
 
         }
             ()),
