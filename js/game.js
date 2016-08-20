@@ -14,7 +14,8 @@ var game = (function () {
         wave : 1, // wave and glitch are set by setWave helper
         glitch : 0,
 
-        maxSelfFix : 4,
+        selfFixMax : 4,
+        
         selfFix : [],
 
     },
@@ -95,9 +96,9 @@ var game = (function () {
 
                 var fixTime;
 
-                if (pubState.selfFix.length < pubState.maxSelfFix) {
+                if (pubState.selfFix.length < pubState.selfFixMax) {
 
-                    fixTime = 30000 - 25000 * pubState.selfFix.length / pubState.maxSelfFix;
+                    fixTime = 20000 - 15000 * pubState.selfFix.length / pubState.selfFixMax;
 
                     pubState.selfFix.push(new SelfFix(fixTime));
 
