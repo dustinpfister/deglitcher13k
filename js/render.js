@@ -58,12 +58,7 @@ var render = (function () {
             ctx.strokeRect(10, 400, 64, 64);
             ctx.strokeText('fix', 42, 420);
 
-            // self fix bar
-            /*
-            ctx.fillStyle = '#00ffff';
-            ctx.fillRect(0, 470, 640 * state.selfFixProgress, 10);
-             */
-
+            // self fix bar(s)
             ctx.fillStyle = 'rgba(0,255,255,.2)';
             state.selfFix.forEach(function (fix) {
 

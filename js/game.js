@@ -14,9 +14,6 @@ var game = (function () {
         wave : 1, // wave and glitch are set by setWave helper
         glitch : 0,
 
-        selfFixTime : 20000,
-        selfFixProgress : 0,
-
         maxSelfFix : 4,
         selfFix : [],
 
@@ -137,55 +134,6 @@ var game = (function () {
 
         }
             ()),
-
-        /*
-        // if you want a job done right, you need to do it yourself.
-        fix : (function () {
-
-        var startTime = new Date(0),
-        fixing = false,
-
-        // game.fix() will start a new fix if one is not in progress.
-        pub = function () {
-
-        if (!fixing) {
-
-        fixing = true;
-
-        startTime = new Date();
-
-        }
-
-        };
-
-        // what to do on each frame tick
-        pub.tick = function () {
-
-        var now = new Date();
-
-        if (fixing) {
-
-        pubState.selfFixProgress = (now - startTime) / pubState.selfFixTime;
-
-        pubState.selfFixProgress = pubState.selfFixProgress > 1 ? 1 : pubState.selfFixProgress;
-
-        if (pubState.selfFixProgress === 1) {
-
-        pubAPI.deglitch(1);
-        fixing = false;
-        pubState.selfFixProgress = 0;
-
-        }
-
-        }
-        };
-
-        // return public function to game.fix
-        return pub;
-
-        }
-        ()),
-         */
 
         // what to do on each frame tick
         update : function () {
