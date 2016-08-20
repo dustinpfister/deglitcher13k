@@ -54,9 +54,13 @@ var render = (function () {
 
             var state = game.pubState;
 
-            ctx.textAlign='left';
+            // fix yourself
+            ctx.strokeRect(10, 400, 64, 64);
+            ctx.strokeText('fix',42,420);
+
+            ctx.textAlign = 'left';
             ctx.strokeText('wave:' + state.wave, 10, 20);
-            ctx.strokeText('glitches: '+ state.glitch, 10, 40);
+            ctx.strokeText('glitches: ' + state.glitch, 10, 40);
 
         }
     },

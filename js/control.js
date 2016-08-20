@@ -6,7 +6,7 @@
  *    as well as game state data.
  *
  */
- 
+
 var control = (function () {
 
     // return a position that is relative to the upper left point of the canvas rather then the window.
@@ -47,7 +47,15 @@ var control = (function () {
 
         },
 
-        game : function (pos, e) {}
+        game : function (pos, e) {
+
+            if (Shell.boundingBox(pos.x, pos.y, 1, 1, 10, 400, 64, 64)) {
+
+                console.log('fix');
+
+            }
+
+        }
 
     },
 
@@ -60,10 +68,6 @@ var control = (function () {
             canvas.addEventListener('mousedown', function (e) {
 
                 var pos = fixPos(e);
-
-                console.log(pos);
-
-                console.log();
 
                 states[main.getState()](pos, e)
 
