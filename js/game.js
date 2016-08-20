@@ -24,6 +24,14 @@ var game = (function () {
 
     },
 
+    setSelfByMoney = function () {
+
+        var progress = pubState.money / 1000000000;
+
+        console.log(progress);
+
+    },
+
     // set the game to the given wave
     setWave = function (wave) {
 
@@ -64,7 +72,6 @@ var game = (function () {
                     pubState.money += pubState.glitch;
 
                     pubState.glitch = 0;
-
 
                 }
 
@@ -158,6 +165,8 @@ var game = (function () {
         update : function () {
 
             this.fix.tick();
+
+            setSelfByMoney();
 
             if (pubState.glitch === 0) {
 
