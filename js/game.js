@@ -11,11 +11,28 @@ var game = (function () {
     // public state
     var pubState = {
 
-        wave : 1,
-        glitch : 5,
+        wave : 1,  // wave and glitch are set by setWave helper
+        glitch : 0,
 
         selfFixTime : 1000,
         selfFixProgress : 0
+
+    },
+
+    // set the game to the given wave
+    setWave = function (wave) {
+
+        pubState.wave = wave;
+        pubState.glitch = 5 * wave + Math.pow(2, wave - 1);
+
+    },
+
+    // what to do on a win
+    onWin = function () {
+
+        pubState.wave += 1;
+
+        setWave(pubState.wave);
 
     },
 
@@ -36,6 +53,12 @@ var game = (function () {
                 } else {
 
                     pubState.glitch = 0;
+
+                }
+
+                if (pubState.glitch === 0) {
+
+                    onWin();
 
                 }
 
@@ -96,6 +119,9 @@ var game = (function () {
         }
 
     };
+
+    // defaut to wave 1
+    setWave(1);
 
     return pubAPI;
 
