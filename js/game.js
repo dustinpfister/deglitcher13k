@@ -73,10 +73,10 @@ var game = (function () {
         fix : (function () {
 
             // self fix constructor
-            var SelfFix = function () {
+            var SelfFix = function (fixTime) {
 
                 this.startTime = new Date();
-                this.fixTime = 10000;
+                this.fixTime = fixTime;
                 this.progress = 0;
 
             },
@@ -96,9 +96,13 @@ var game = (function () {
             // game.fix() will start a new fix if one is not in progress.
             var pub = function () {
 
+                var fixTime;
+
                 if (pubState.selfFix.length < pubState.maxSelfFix) {
 
-                    pubState.selfFix.push(new SelfFix());
+                    fixTime = 30000 - 25000 * pubState.selfFix.length / pubState.maxSelfFix;
+
+                    pubState.selfFix.push(new SelfFix(fixTime));
 
                 }
 
