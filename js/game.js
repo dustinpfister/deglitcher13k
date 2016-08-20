@@ -12,9 +12,9 @@ var game = (function () {
     var pubState = {
 
         wave : 1,
-        glitch : 100,
+        glitch : 5,
 
-        selfFixTime : 10000,
+        selfFixTime : 1000,
         selfFixProgress : 0
 
     },
@@ -24,9 +24,22 @@ var game = (function () {
 
         pubState : pubState,
 
+        // deglitch a count of glitches
         deglitch : function (count) {
 
-            pubState.glitch -= count;
+            if (typeof count === 'number' && count > 0) {
+
+                if (pubState.glitch > count) {
+
+                    pubState.glitch -= count;
+
+                } else {
+
+                    pubState.glitch = 0;
+
+                }
+
+            }
 
         },
 
