@@ -14,10 +14,11 @@ var game = (function () {
         wave : 1, // wave and glitch are set by setWave helper
         glitch : 0,
 
-        selfFixMax : 8,
+        selfFixMaxTime : 20000,
+        selfFixMax : 4,
         selfFixLast : new Date(0),
         selfFixMultiBonus : true,
-        selfFixDelay : 300,
+        selfFixDelay : 3000,
         selfFix : [],
 
     },
@@ -92,7 +93,8 @@ var game = (function () {
             // game.fix() will start a new fix if one is not in progress.
             var pub = function () {
 
-                var fixTime = 20000;
+                var fixTime = pubState.selfFixMaxTime,
+                fixPer;
 
                 if (new Date() - pubState.selfFixLast >= pubState.selfFixDelay) {
 
@@ -100,7 +102,9 @@ var game = (function () {
 
                         if (pubState.selfFixMultiBonus) {
 
-                            fixTime = 20000 - 15000 * pubState.selfFix.length / pubState.selfFixMax;
+                            fixPer = pubState.selfFix.length / pubState.selfFixMax;
+
+                            fixTime = pubState.selfFixMaxTime -  pubState.selfFixMaxTime * .90 * fixPer;
 
                         }
 
