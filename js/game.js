@@ -49,6 +49,7 @@ var game = (function () {
             var startTime = new Date(0),
             fixing = false,
 
+            // game.fix() will start a new fix if one is not in progress.
             pub = function () {
 
                 if (!fixing) {
@@ -61,6 +62,7 @@ var game = (function () {
 
             };
 
+            // what to do on each frame tick
             pub.tick = function () {
 
                 var now = new Date();
@@ -83,46 +85,6 @@ var game = (function () {
             };
 
             return pub;
-
-            /*
-            return {
-
-            start : function () {
-
-            if (!fixing) {
-
-            fixing = true;
-
-            startTime = new Date();
-
-            }
-
-            },
-
-            tick : function () {
-
-            var now = new Date();
-
-            if (fixing) {
-
-            pubState.selfFixProgress = (now - startTime) / pubState.selfFixTime;
-
-            pubState.selfFixProgress = pubState.selfFixProgress > 1 ? 1 : pubState.selfFixProgress;
-
-            if (pubState.selfFixProgress === 1) {
-
-            pubAPI.deglitch(1);
-            fixing = false;
-            pubState.selfFixProgress = 0;
-
-            }
-
-            }
-
-            }
-
-            };
-             */
 
         }
             ()),
