@@ -24,6 +24,12 @@ var game = (function () {
 
         pubState : pubState,
 
+        deglitch : function (count) {
+
+            pubState.glitch -= count;
+
+        },
+
         // if you want a job done right, you need to do it yourself.
         fix : (function () {
 
@@ -56,7 +62,7 @@ var game = (function () {
 
                         if (pubState.selfFixProgress === 1) {
 
-                            pubState.glitch -= 1;
+                            pubAPI.deglitch(1);
                             fixing = false;
                             pubState.selfFixProgress = 0;
 
