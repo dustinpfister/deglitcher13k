@@ -15,7 +15,9 @@ var game = (function () {
         glitch : 0,
 
         selfFixMax : 4,
-        
+        selfFixLast : new Date(0),
+        selfFixMultiBonus : true,
+        selfFixDelay : 5000,
         selfFix : [],
 
     },
@@ -96,11 +98,17 @@ var game = (function () {
 
                 var fixTime;
 
-                if (pubState.selfFix.length < pubState.selfFixMax) {
+                if (new Date() - pubState.selfFixLast >= pubState.selfFixDelay) {
 
-                    fixTime = 20000 - 15000 * pubState.selfFix.length / pubState.selfFixMax;
+                    if (pubState.selfFix.length < pubState.selfFixMax) {
 
-                    pubState.selfFix.push(new SelfFix(fixTime));
+                        fixTime = 20000 - 15000 * pubState.selfFix.length / pubState.selfFixMax;
+
+                        pubState.selfFix.push(new SelfFix(fixTime));
+
+                    }
+
+                    pubState.selfFixLast = new Date();
 
                 }
 
