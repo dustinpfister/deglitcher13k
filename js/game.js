@@ -58,6 +58,7 @@ var game = (function () {
 
                             pubState.glitch -= 1;
                             fixing = false;
+                            pubState.selfFixProgress = 0;
 
                         }
 
