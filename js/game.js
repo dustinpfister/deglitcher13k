@@ -19,16 +19,24 @@ var game = (function () {
         selfFixMax : 1,
         selfFixLast : new Date(0),
         selfFixMultiBonus : false,
-        selfFixDelay : 3000,
+        selfFixDelay : 300,
         selfFix : [],
 
     },
 
+    // one billion dollars! ( places pinkie up near mouth )
+    maxMoney = 1000000000,
+
+    // set self fix values by amount of money made
     setSelfByMoney = function () {
 
-        var progress = pubState.money / 1000000000;
+        // progress by Math.log
+        var logPro = Math.log(pubState.money) / Math.log(maxMoney);
 
-        console.log(progress);
+        // no -Infinity if money is zero
+        logPro = logPro < 0 ? 0 : logPro;
+
+        pubState.selfFixMax = Math.floor(9 * logPro) + 1;
 
     },
 
