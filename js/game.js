@@ -13,11 +13,12 @@ var game = (function () {
 
         wave : 1, // wave and glitch are set by setWave helper
         glitch : 0,
+        money : 0,
 
         selfFixMaxTime : 20000,
-        selfFixMax : 4,
+        selfFixMax : 1,
         selfFixLast : new Date(0),
-        selfFixMultiBonus : true,
+        selfFixMultiBonus : false,
         selfFixDelay : 3000,
         selfFix : [],
 
@@ -52,13 +53,18 @@ var game = (function () {
 
             if (typeof count === 'number' && count > 0) {
 
-                if (pubState.glitch > count) {
+                if (pubState.glitch >= count) {
 
                     pubState.glitch -= count;
 
+                    pubState.money += count;
+
                 } else {
 
+                    pubState.money += pubState.glitch;
+
                     pubState.glitch = 0;
+
 
                 }
 
@@ -104,7 +110,7 @@ var game = (function () {
 
                             fixPer = pubState.selfFix.length / pubState.selfFixMax;
 
-                            fixTime = pubState.selfFixMaxTime -  pubState.selfFixMaxTime * .90 * fixPer;
+                            fixTime = pubState.selfFixMaxTime - pubState.selfFixMaxTime * .90 * fixPer;
 
                         }
 
