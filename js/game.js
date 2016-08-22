@@ -12,10 +12,12 @@ var game = (function () {
     var pubState = {
 
         wave : 1, // wave and glitch are set by setWave helper
+        level : 1,
         glitch : 0,
-        exp : 0,
+        exp : 0, //Math.pow(10,9),
         // one billion dollars! ( places pinkie up near mouth )
-        maxExp : 1000000000,
+        //maxExp : 100000000000,
+        maxExp : Math.pow(10,9),
 
         //selfFix
         selfFix : {
@@ -26,6 +28,12 @@ var game = (function () {
             multi : false,
             delay : 300,
             inProgress : []
+
+        },
+
+        workers : {
+
+            current : []// current list of workers
 
         }
 
@@ -40,6 +48,9 @@ var game = (function () {
         // no -Infinity if exp is zero
         logPro = logPro < 0 ? 0 : logPro;
 
+		console.log(logPro)
+		
+        this.level = Math.floor(499 * logPro * logPro) + 1;
         this.selfFix.maxCount = Math.floor(9 * logPro) + 1;
 
     }
