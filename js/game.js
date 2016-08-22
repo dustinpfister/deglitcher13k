@@ -14,7 +14,7 @@ var game = (function () {
         wave : 1, // wave and glitch are set by setWave helper
         level : 1,
         glitch : 0,
-        exp : 0, //Math.pow(10,9),
+        exp : 100, //Math.pow(10,9),
         // one billion dollars! ( places pinkie up near mouth )
         //maxExp : 100000000000,
         maxExp : Math.pow(10, 9),
@@ -78,6 +78,32 @@ var game = (function () {
 
     },
 
+    Worker = function () {
+
+        this.lastFix = new Date();
+        this.progress = 0;
+        this.fixTime = 60000;
+
+    },
+
+    proto = Worker.prototype;
+
+    proto.update = function () {
+
+        var now = new Date(),
+        time = now - this.lastFix;
+
+        this.progress = time / this.fixTime;
+
+        if (this.progress >= 1) {
+
+            this.progress = 0;
+            this.lastFix = new Date();
+
+        }
+
+    };
+
     // public API
     pubAPI = {
 
@@ -102,8 +128,8 @@ var game = (function () {
 
                 }
 
-                if (pubState.exp > 1000000000) {
-                    pubState.exp = 1000000000;
+                if (pubState.exp > pubState.maxExp) {
+                    pubState.exp = pubState.maxExp;
                 }
 
             }
