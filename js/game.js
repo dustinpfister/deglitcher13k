@@ -57,6 +57,8 @@ var game = (function () {
         // set max worker
         this.workers.max = Math.floor(this.level / 3);
 
+        console.log(this.workers.current.length);
+
     }
 
     // pubState method (used with call): set the game to the given wave
@@ -82,7 +84,7 @@ var game = (function () {
 
         this.lastFix = new Date();
         this.progress = 0;
-        this.fixTime = 60000;
+        this.fixTime = 5000 + Math.floor(Math.random() * 55000);
 
     },
 
@@ -226,6 +228,19 @@ var game = (function () {
             //setSelfByExp();
 
             setByExp.call(pubState);
+
+            // workers
+            if (pubState.workers.current.length < pubState.workers.max) {
+
+                pubState.workers.current.push(new Worker())
+
+            }
+
+            pubState.workers.current.forEach(function (worker) {
+
+                worker.update();
+
+            });
 
             if (pubState.glitch === 0) {
 

@@ -66,6 +66,14 @@ var render = (function () {
 
             });
 
+            // workers
+            ctx.fillStyle = 'rgba(255,255,255,.2)';
+            state.workers.current.forEach(function (worker) {
+
+                ctx.fillRect(0, 470, 640 * worker.progress, 10);
+
+            });
+
             ctx.textAlign = 'left';
             ctx.strokeText('wave:' + state.wave+';', 10, 20);
             ctx.strokeText('level : '+state.level+', exp: ' + state.exp+';', 10, 40);
