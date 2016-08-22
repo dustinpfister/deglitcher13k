@@ -17,7 +17,7 @@ var game = (function () {
         exp : 0, //Math.pow(10,9),
         // one billion dollars! ( places pinkie up near mouth )
         //maxExp : 100000000000,
-        maxExp : Math.pow(10,9),
+        maxExp : Math.pow(10, 9),
 
         //selfFix
         selfFix : {
@@ -33,6 +33,7 @@ var game = (function () {
 
         workers : {
 
+            max : 0,
             current : []// current list of workers
 
         }
@@ -48,8 +49,13 @@ var game = (function () {
         // no -Infinity if exp is zero
         logPro = logPro < 0 ? 0 : logPro;
 
-        this.level = Math.floor( 299 * Math.pow(logPro,2) ) + 1;
+        this.level = Math.floor(299 * Math.pow(logPro, 2)) + 1;
+
+        // set max self fix
         this.selfFix.maxCount = Math.floor(9 * logPro) + 1;
+
+        // set max worker
+        this.workers.max = Math.floor(this.level / 3);
 
     }
 
