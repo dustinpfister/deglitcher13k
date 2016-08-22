@@ -17,73 +17,49 @@ var game = (function () {
         // one billion dollars! ( places pinkie up near mouth )
         maxExp : 1000000000,
 
-        /*
-        selfFixMaxTime : 20000,
-        selfFixMax : 1,
-        selfFixLast : new Date(0),
-        selfFixMultiBonus : false,
-        selfFixDelay : 300,
-        selfFix : [],
-         */
-
+        //selfFix
         selfFix : {
 
-            maxTime : 20000,
+            maxTime : 10000,
             maxCount : 1,
             last : new Date(0),
             multi : false,
             delay : 300,
             inProgress : []
 
-        },
-
-        // set self fix values by amount of exp made
-        setByExp : function () {
-
-            // progress by Math.log
-            var logPro = Math.log(this.exp) / Math.log(this.maxExp);
-
-            // no -Infinity if exp is zero
-            logPro = logPro < 0 ? 0 : logPro;
-
-            this.selfFix.maxCount = Math.floor(9 * logPro) + 1;
-
         }
 
     },
 
-	/*
-    // set self fix values by amount of exp made
-    setSelfByExp = function () {
+    // pubState method (used with call): set's self fix values by amount of exp made
+    setByExp = function () {
 
         // progress by Math.log
-        var logPro = Math.log(pubState.exp) / Math.log(maxExp);
+        var logPro = Math.log(this.exp) / Math.log(this.maxExp);
 
         // no -Infinity if exp is zero
         logPro = logPro < 0 ? 0 : logPro;
 
-        pubState.selfFixMax = Math.floor(9 * logPro) + 1;
+        this.selfFix.maxCount = Math.floor(9 * logPro) + 1;
 
-    },
+    }
 
-	*/
-	
-    // set the game to the given wave
+    // pubState method (used with call): set the game to the given wave
     setWave = function (wave) {
 
-        pubState.wave = wave;
-        pubState.glitch = 5 * wave + Math.pow(2, wave - 1);
+        this.wave = wave;
+        this.glitch = 5 * wave + Math.pow(2, wave - 1);
 
     },
 
-    // what to do on a win
+    // pubState method (used with call): what to do on a win
     onWin = function () {
 
-        pubState.wave += 1;
+        this.wave += 1;
 
-        pubState.selfFix.inProgress = [];
+        this.selfFix.inProgress = [];
 
-        setWave(pubState.wave);
+        setWave.call(this, this.wave);
 
     },
 
@@ -208,11 +184,11 @@ var game = (function () {
 
             //setSelfByExp();
 
-            pubState.setByExp();
+            setByExp.call(pubState);
 
             if (pubState.glitch === 0) {
 
-                onWin();
+                onWin.call(pubState);
 
             }
 
@@ -221,7 +197,7 @@ var game = (function () {
     };
 
     // defaut to wave 1
-    setWave(1);
+    setWave.call(pubState, 1);
 
     // return the public API to the game global variable
     return pubAPI;
