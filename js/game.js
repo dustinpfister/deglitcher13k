@@ -48,9 +48,7 @@ var game = (function () {
         // no -Infinity if exp is zero
         logPro = logPro < 0 ? 0 : logPro;
 
-		console.log(logPro)
-		
-        this.level = Math.floor(499 * logPro * logPro) + 1;
+        this.level = Math.floor( 299 * Math.pow(logPro,2) ) + 1;
         this.selfFix.maxCount = Math.floor(9 * logPro) + 1;
 
     }
