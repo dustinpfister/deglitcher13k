@@ -69,7 +69,7 @@ var render = (function () {
             ctx.textAlign = 'left';
             ctx.strokeText('wave:' + state.wave, 10, 20);
             ctx.strokeText('glitches: ' + state.glitch, 10, 40);
-            ctx.strokeText(state.money+'$', 10, 60);
+            ctx.strokeText('exp: ' + state.exp, 10, 60);
 
         }
     },

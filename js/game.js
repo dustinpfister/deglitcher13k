@@ -13,7 +13,7 @@ var game = (function () {
 
         wave : 1, // wave and glitch are set by setWave helper
         glitch : 0,
-        money : 0,
+        exp : 0,
 
         selfFixMaxTime : 20000,
         selfFixMax : 1,
@@ -25,15 +25,15 @@ var game = (function () {
     },
 
     // one billion dollars! ( places pinkie up near mouth )
-    maxMoney = 1000000000,
+    maxExp = 1000000000,
 
-    // set self fix values by amount of money made
-    setSelfByMoney = function () {
+    // set self fix values by amount of exp made
+    setSelfByExp = function () {
 
         // progress by Math.log
-        var logPro = Math.log(pubState.money) / Math.log(maxMoney);
+        var logPro = Math.log(pubState.exp) / Math.log(maxExp);
 
-        // no -Infinity if money is zero
+        // no -Infinity if exp is zero
         logPro = logPro < 0 ? 0 : logPro;
 
         pubState.selfFixMax = Math.floor(9 * logPro) + 1;
@@ -73,17 +73,17 @@ var game = (function () {
 
                     pubState.glitch -= count;
 
-                    pubState.money += count;
+                    pubState.exp += count;
 
                 } else {
 
-                    pubState.money += pubState.glitch;
+                    pubState.exp += pubState.glitch;
 
                     pubState.glitch = 0;
 
                 }
 
-                if(pubState.money > 1000000000){ pubState.money = 1000000000; }
+                if(pubState.exp > 1000000000){ pubState.exp = 1000000000; }
 
             }
 
@@ -176,7 +176,7 @@ var game = (function () {
 
             this.fix.tick();
 
-            setSelfByMoney();
+            setSelfByExp();
 
             if (pubState.glitch === 0) {
 
