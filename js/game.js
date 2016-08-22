@@ -14,19 +14,45 @@ var game = (function () {
         wave : 1, // wave and glitch are set by setWave helper
         glitch : 0,
         exp : 0,
+        // one billion dollars! ( places pinkie up near mouth )
+        maxExp : 1000000000,
 
+        /*
         selfFixMaxTime : 20000,
         selfFixMax : 1,
         selfFixLast : new Date(0),
         selfFixMultiBonus : false,
         selfFixDelay : 300,
         selfFix : [],
+         */
+
+        selfFix : {
+
+            maxTime : 20000,
+            maxCount : 1,
+            last : new Date(0),
+            multi : false,
+            delay : 300,
+            inProgress : []
+
+        },
+
+        // set self fix values by amount of exp made
+        setByExp : function () {
+
+            // progress by Math.log
+            var logPro = Math.log(this.exp) / Math.log(this.maxExp);
+
+            // no -Infinity if exp is zero
+            logPro = logPro < 0 ? 0 : logPro;
+
+            this.selfFix.maxCount = Math.floor(9 * logPro) + 1;
+
+        }
 
     },
 
-    // one billion dollars! ( places pinkie up near mouth )
-    maxExp = 1000000000,
-
+	/*
     // set self fix values by amount of exp made
     setSelfByExp = function () {
 
@@ -40,6 +66,8 @@ var game = (function () {
 
     },
 
+	*/
+	
     // set the game to the given wave
     setWave = function (wave) {
 
@@ -53,7 +81,7 @@ var game = (function () {
 
         pubState.wave += 1;
 
-        pubState.selfFix = [];
+        pubState.selfFix.inProgress = [];
 
         setWave(pubState.wave);
 
@@ -83,7 +111,9 @@ var game = (function () {
 
                 }
 
-                if(pubState.exp > 1000000000){ pubState.exp = 1000000000; }
+                if (pubState.exp > 1000000000) {
+                    pubState.exp = 1000000000;
+                }
 
             }
 
@@ -116,26 +146,26 @@ var game = (function () {
             // game.fix() will start a new fix if one is not in progress.
             var pub = function () {
 
-                var fixTime = pubState.selfFixMaxTime,
+                var fixTime = pubState.selfFix.maxTime,
                 fixPer;
 
-                if (new Date() - pubState.selfFixLast >= pubState.selfFixDelay) {
+                if (new Date() - pubState.selfFix.last >= pubState.selfFix.delay) {
 
-                    if (pubState.selfFix.length < pubState.selfFixMax) {
+                    if (pubState.selfFix.inProgress.length < pubState.selfFix.maxCount) {
 
-                        if (pubState.selfFixMultiBonus) {
+                        if (pubState.selfFix.multiBonus) {
 
-                            fixPer = pubState.selfFix.length / pubState.selfFixMax;
+                            fixPer = pubState.selfFix.inProgress.length / pubState.selfFix.maxCount;
 
-                            fixTime = pubState.selfFixMaxTime - pubState.selfFixMaxTime * .90 * fixPer;
+                            fixTime = pubState.selfFix.maxTime - pubState.selfFix.maxTime * .90 * fixPer;
 
                         }
 
-                        pubState.selfFix.push(new SelfFix(fixTime));
+                        pubState.selfFix.inProgress.push(new SelfFix(fixTime));
 
                     }
 
-                    pubState.selfFixLast = new Date();
+                    pubState.selfFix.last = new Date();
 
                 }
 
@@ -144,11 +174,11 @@ var game = (function () {
             // what to do on each frame tick
             pub.tick = function () {
 
-                var i = pubState.selfFix.length,
+                var i = pubState.selfFix.inProgress.length,
                 selfFix;
                 while (i--) {
 
-                    selfFix = pubState.selfFix[i];
+                    selfFix = pubState.selfFix.inProgress[i];
 
                     selfFix.update();
 
@@ -157,7 +187,7 @@ var game = (function () {
                         pubAPI.deglitch(1);
 
                         // purge
-                        pubState.selfFix.splice(i, 1);
+                        pubState.selfFix.inProgress.splice(i, 1);
 
                     }
 
@@ -176,7 +206,9 @@ var game = (function () {
 
             this.fix.tick();
 
-            setSelfByExp();
+            //setSelfByExp();
+
+            pubState.setByExp();
 
             if (pubState.glitch === 0) {
 
