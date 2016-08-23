@@ -34,7 +34,7 @@ proto.update = function () {
 
 var Worker = function () {
 
-    this.fixTime = Math.floor(55000 * Math.random()) + 5000;
+    this.fixTime = Math.floor(5000 * Math.random()) + 5000;
     this.maxFix = 1;
     this.fixArray = [];
 
@@ -59,6 +59,12 @@ proto.update = function () {
         fix = this.fixArray[i];
 
         fix.update();
+
+        if (fix.progress === 1) {
+
+            this.fixArray.splice(i, 1)
+
+        }
 
     }
 
