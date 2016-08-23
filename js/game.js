@@ -37,7 +37,7 @@ var Worker = function(){
 
     this.fixTime = 60000;
     this.maxFix = 1;
-    this.current = [];
+    this.fixArray = [];
 
 };
 
@@ -45,9 +45,9 @@ proto = Worker.prototype;
 
 proto.update = function(){
 
-    if(this.current.length < this.maxFix){
+    if(this.fixArray.length < this.maxFix){
 
-        this.current.push(new Fix(this.fixTime));
+        this.fixArray.push(new Fix(this.fixTime));
 
     }
 
@@ -74,7 +74,7 @@ var game = (function () {
             last : new Date(0),
             multi : false,
             delay : 300,
-            current : []
+            fixArray : []
 
         },
 
@@ -222,17 +222,17 @@ var game = (function () {
 
                 if (new Date() - pubState.selfFix.last >= pubState.selfFix.delay) {
 
-                    if (pubState.selfFix.current.length < pubState.selfFix.maxCount) {
+                    if (pubState.selfFix.fixArray.length < pubState.selfFix.maxCount) {
 
                         if (pubState.selfFix.multiBonus) {
 
-                            fixPer = pubState.selfFix.current.length / pubState.selfFix.maxCount;
+                            fixPer = pubState.selfFix.fixArray.length / pubState.selfFix.maxCount;
 
                             fixTime = pubState.selfFix.maxTime - pubState.selfFix.maxTime * .90 * fixPer;
 
                         }
 
-                        pubState.selfFix.current.push(new Fix(fixTime));
+                        pubState.selfFix.fixArray.push(new Fix(fixTime));
 
                     }
 
@@ -245,11 +245,11 @@ var game = (function () {
             // what to do on each frame tick
             pub.tick = function () {
 
-                var i = pubState.selfFix.current.length,
+                var i = pubState.selfFix.fixArray.length,
                 selfFix;
                 while (i--) {
 
-                    selfFix = pubState.selfFix.current[i];
+                    selfFix = pubState.selfFix.fixArray[i];
 
                     selfFix.update();
 
@@ -258,7 +258,7 @@ var game = (function () {
                         pubAPI.deglitch(1);
 
                         // purge
-                        pubState.selfFix.current.splice(i, 1);
+                        pubState.selfFix.fixArray.splice(i, 1);
 
                     }
 

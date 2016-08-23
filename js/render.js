@@ -60,7 +60,7 @@ var render = (function () {
 
             // self fix bar(s)
             ctx.fillStyle = 'rgba(0,255,255,.2)';
-            state.selfFix.current.forEach(function (fix) {
+            state.selfFix.fixArray.forEach(function (fix) {
 
                 ctx.fillRect(0, 470, 640 * fix.progress, 10);
 
@@ -70,7 +70,11 @@ var render = (function () {
             ctx.fillStyle = 'rgba(255,255,255,.2)';
             state.workers.current.forEach(function (worker) {
 
+                worker.fixArray.forEach(function(fix){
+
                 ctx.fillRect(0, 470, 640 * worker.progress, 10);
+
+                });
 
             });
 
