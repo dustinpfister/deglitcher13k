@@ -9,7 +9,7 @@
 // the fix Class
 var Fix = function (fixTime) {
 
-    this.lastFix = new Date();
+    this.startTime = new Date();
     this.progress = 0;
     this.fixTime = fixTime; //5000 + Math.floor(Math.random() * 55000);
 
@@ -20,18 +20,17 @@ proto = Fix.prototype;
 proto.update = function () {
 
     var now = new Date(),
-    time = now - this.lastFix;
+    time = now - this.startTime;
 
     this.progress = time / this.fixTime;
 
     if (this.progress >= 1) {
 
-        this.progress = 0;
-        this.lastFix = new Date();
+        this.progress = 1;
 
     }
 
-},
+};
 
 var game = (function () {
 
@@ -54,7 +53,7 @@ var game = (function () {
             last : new Date(0),
             multi : false,
             delay : 300,
-            inProgress : []
+            current : []
 
         },
 
@@ -107,6 +106,7 @@ var game = (function () {
 
     },
 
+/*
     Worker = function () {
 
         this.lastFix = new Date();
@@ -132,6 +132,8 @@ var game = (function () {
         }
 
     },
+*/
+
 
     // public API
     pubAPI = {
@@ -168,6 +170,7 @@ var game = (function () {
         // if you want a job done right, you need to do it yourself.
         fix : (function () {
 
+/*
             // self fix constructor
             var SelfFix = function (fixTime) {
 
@@ -188,6 +191,7 @@ var game = (function () {
                 this.progress = this.progress > 1 ? 1 : this.progress;
 
             };
+            */
 
             // game.fix() will start a new fix if one is not in progress.
             var pub = function () {
@@ -197,17 +201,17 @@ var game = (function () {
 
                 if (new Date() - pubState.selfFix.last >= pubState.selfFix.delay) {
 
-                    if (pubState.selfFix.inProgress.length < pubState.selfFix.maxCount) {
+                    if (pubState.selfFix.current.length < pubState.selfFix.maxCount) {
 
                         if (pubState.selfFix.multiBonus) {
 
-                            fixPer = pubState.selfFix.inProgress.length / pubState.selfFix.maxCount;
+                            fixPer = pubState.selfFix.current.length / pubState.selfFix.maxCount;
 
                             fixTime = pubState.selfFix.maxTime - pubState.selfFix.maxTime * .90 * fixPer;
 
                         }
 
-                        pubState.selfFix.inProgress.push(new SelfFix(fixTime));
+                        pubState.selfFix.current.push(new Fix(fixTime));
 
                     }
 
@@ -220,11 +224,11 @@ var game = (function () {
             // what to do on each frame tick
             pub.tick = function () {
 
-                var i = pubState.selfFix.inProgress.length,
+                var i = pubState.selfFix.current.length,
                 selfFix;
                 while (i--) {
 
-                    selfFix = pubState.selfFix.inProgress[i];
+                    selfFix = pubState.selfFix.current[i];
 
                     selfFix.update();
 
@@ -233,7 +237,7 @@ var game = (function () {
                         pubAPI.deglitch(1);
 
                         // purge
-                        pubState.selfFix.inProgress.splice(i, 1);
+                        pubState.selfFix.current.splice(i, 1);
 
                     }
 
@@ -259,7 +263,7 @@ var game = (function () {
             // workers
             if (pubState.workers.current.length < pubState.workers.max) {
 
-                pubState.workers.current.push(new Worker())
+               // pubState.workers.current.push(new Worker())
 
             }
 
