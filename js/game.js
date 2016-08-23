@@ -32,7 +32,6 @@ proto.update = function () {
 
 };
 
-
 var Worker = function(){
 
     this.fixTime = 60000;
@@ -127,35 +126,6 @@ var game = (function () {
 
     },
 
-/*
-    Worker = function () {
-
-        this.lastFix = new Date();
-        this.progress = 0;
-        this.fixTime = 5000 + Math.floor(Math.random() * 55000);
-
-    },
-
-    proto = Worker.prototype;
-
-    proto.update = function () {
-
-        var now = new Date(),
-        time = now - this.lastFix;
-
-        this.progress = time / this.fixTime;
-
-        if (this.progress >= 1) {
-
-            this.progress = 0;
-            this.lastFix = new Date();
-
-        }
-
-    },
-*/
-
-
     // public API
     pubAPI = {
 
@@ -190,29 +160,6 @@ var game = (function () {
 
         // if you want a job done right, you need to do it yourself.
         fix : (function () {
-
-/*
-            // self fix constructor
-            var SelfFix = function (fixTime) {
-
-                this.startTime = new Date();
-                this.fixTime = fixTime;
-                this.progress = 0;
-
-            },
-
-            proto = SelfFix.prototype;
-
-            proto.update = function () {
-
-                var now = new Date();
-
-                this.progress = (now - this.startTime) / this.fixTime;
-
-                this.progress = this.progress > 1 ? 1 : this.progress;
-
-            };
-            */
 
             // game.fix() will start a new fix if one is not in progress.
             var pub = function () {
@@ -276,8 +223,6 @@ var game = (function () {
         update : function () {
 
             this.fix.tick();
-
-            //setSelfByExp();
 
             setByExp.call(pubState);
 
