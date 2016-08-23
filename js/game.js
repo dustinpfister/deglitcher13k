@@ -252,6 +252,8 @@ var game = (function () {
 
                     if (fix.progress === 1) {
 
+                        pubAPI.deglitch(1);
+
                         worker.fixArray.splice(i, 1)
 
                     }
