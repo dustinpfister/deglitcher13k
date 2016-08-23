@@ -6,6 +6,33 @@
  *
  */
 
+// the fix Class
+var Fix = function (fixTime) {
+
+    this.lastFix = new Date();
+    this.progress = 0;
+    this.fixTime = fixTime; //5000 + Math.floor(Math.random() * 55000);
+
+},
+
+proto = Fix.prototype;
+
+proto.update = function () {
+
+    var now = new Date(),
+    time = now - this.lastFix;
+
+    this.progress = time / this.fixTime;
+
+    if (this.progress >= 1) {
+
+        this.progress = 0;
+        this.lastFix = new Date();
+
+    }
+
+},
+
 var game = (function () {
 
     // public state
@@ -104,7 +131,7 @@ var game = (function () {
 
         }
 
-    };
+    },
 
     // public API
     pubAPI = {
