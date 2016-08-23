@@ -63,7 +63,7 @@ var game = (function () {
         wave : 1, // wave and glitch are set by setWave helper
         level : 1,
         glitch : 0,
-        exp : 100, //Math.pow(10,9),
+        exp : 0, //Math.pow(10,9),
 
         // one billion dollars! ( places pinkie up near mouth )
         maxExp : Math.pow(10, 9),
@@ -108,7 +108,7 @@ var game = (function () {
 
         console.log(this.workers.current.length);
 
-    }
+    },
 
     // pubState method (used with call): set the game to the given wave
     setWave = function (wave) {
