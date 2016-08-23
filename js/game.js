@@ -32,6 +32,27 @@ proto.update = function () {
 
 };
 
+
+var Worker = function(){
+
+    this.fixTime = 60000;
+    this.maxFix = 1;
+    this.current = [];
+
+};
+
+proto = Worker.prototype;
+
+proto.update = function(){
+
+    if(this.current.length < this.maxFix){
+
+        this.current.push(new Fix(this.fixTime));
+
+    }
+
+};
+
 var game = (function () {
 
     // public state
@@ -263,7 +284,7 @@ var game = (function () {
             // workers
             if (pubState.workers.current.length < pubState.workers.max) {
 
-               // pubState.workers.current.push(new Worker())
+                pubState.workers.current.push(new Worker());
 
             }
 
