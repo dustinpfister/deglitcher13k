@@ -53,21 +53,6 @@ proto.update = function () {
 
     }
 
-    i = this.fixArray.length;
-    while (i--) {
-
-        fix = this.fixArray[i];
-
-        fix.update();
-
-        if (fix.progress === 1) {
-
-            this.fixArray.splice(i, 1)
-
-        }
-
-    }
-
 };
 
 var game = (function () {
@@ -79,8 +64,8 @@ var game = (function () {
         level : 1,
         glitch : 0,
         exp : 100, //Math.pow(10,9),
+
         // one billion dollars! ( places pinkie up near mouth )
-        //maxExp : 100000000000,
         maxExp : Math.pow(10, 9),
 
         //selfFix
@@ -253,7 +238,25 @@ var game = (function () {
 
             pubState.workers.current.forEach(function (worker) {
 
+                var i,
+                fix;
+
                 worker.update();
+
+                i = worker.fixArray.length;
+                while (i--) {
+
+                    fix = worker.fixArray[i];
+
+                    fix.update();
+
+                    if (fix.progress === 1) {
+
+                        worker.fixArray.splice(i, 1)
+
+                    }
+
+                }
 
             });
 
