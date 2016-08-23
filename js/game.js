@@ -44,17 +44,23 @@ proto = Worker.prototype;
 
 proto.update = function () {
 
+    var i,
+    fix;
+
     if (this.fixArray.length < this.maxFix) {
 
         this.fixArray.push(new Fix(this.fixTime));
 
     }
 
-    this.fixArray.forEach(function (fix) {
+    i = this.fixArray.length;
+    while (i--) {
+
+        fix = this.fixArray[i];
 
         fix.update();
 
-    });
+    }
 
 };
 
