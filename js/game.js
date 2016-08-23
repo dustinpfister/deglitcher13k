@@ -32,9 +32,9 @@ proto.update = function () {
 
 };
 
-var Worker = function(){
+var Worker = function () {
 
-    this.fixTime = 60000;
+    this.fixTime = Math.floor(55000 * Math.random()) + 5000;
     this.maxFix = 1;
     this.fixArray = [];
 
@@ -42,13 +42,19 @@ var Worker = function(){
 
 proto = Worker.prototype;
 
-proto.update = function(){
+proto.update = function () {
 
-    if(this.fixArray.length < this.maxFix){
+    if (this.fixArray.length < this.maxFix) {
 
         this.fixArray.push(new Fix(this.fixTime));
 
     }
+
+    this.fixArray.forEach(function (fix) {
+
+        fix.update();
+
+    });
 
 };
 

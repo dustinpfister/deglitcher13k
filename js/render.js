@@ -72,7 +72,7 @@ var render = (function () {
 
                 worker.fixArray.forEach(function(fix){
 
-                ctx.fillRect(0, 470, 640 * worker.progress, 10);
+                ctx.fillRect(0, 470, 640 * fix.progress, 10);
 
                 });
 
