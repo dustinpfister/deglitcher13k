@@ -106,8 +106,6 @@ var game = (function () {
         // set max worker
         this.workers.max = Math.floor(this.level / 3);
 
-        console.log(this.workers.current.length);
-
     },
 
     // pubState method (used with call): set the game to the given wave

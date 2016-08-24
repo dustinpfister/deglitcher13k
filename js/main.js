@@ -36,8 +36,6 @@ var main = (function () {
             // what needs to happen before we start the app
             firstRun : function () {
 
-                console.log('start state first run:');
-
                 render.setup('gamearea', 640, 480);
 
             },
@@ -57,8 +55,6 @@ var main = (function () {
             // set up a new game
             firstRun : function () {
 
-                console.log('title state first run:');
-
             },
 
             // what to do for each tick durring the game state
@@ -71,8 +67,6 @@ var main = (function () {
 
             // set up a new game
             firstRun : function () {
-
-                console.log('game state first run:');
 
             },
 
