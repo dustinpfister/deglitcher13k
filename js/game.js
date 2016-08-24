@@ -6,56 +6,56 @@
  *
  */
 
-// the fix Class
-var Fix = function (fixTime) {
-
-    this.startTime = new Date();
-    this.progress = 0;
-    this.fixTime = fixTime; //5000 + Math.floor(Math.random() * 55000);
-
-},
-
-proto = Fix.prototype;
-
-proto.update = function () {
-
-    var now = new Date(),
-    time = now - this.startTime;
-
-    this.progress = time / this.fixTime;
-
-    if (this.progress >= 1) {
-
-        this.progress = 1;
-
-    }
-
-};
-
-var Worker = function () {
-
-    this.fixTime = Math.floor(5000 * Math.random()) + 5000;
-    this.maxFix = 1;
-    this.fixArray = [];
-
-};
-
-proto = Worker.prototype;
-
-proto.update = function () {
-
-    var i,
-    fix;
-
-    if (this.fixArray.length < this.maxFix) {
-
-        this.fixArray.push(new Fix(this.fixTime));
-
-    }
-
-};
-
 var game = (function () {
+
+    // the fix Class
+    var Fix = function (fixTime) {
+
+        this.startTime = new Date();
+        this.progress = 0;
+        this.fixTime = fixTime; //5000 + Math.floor(Math.random() * 55000);
+
+    },
+
+    proto = Fix.prototype;
+
+    proto.update = function () {
+
+        var now = new Date(),
+        time = now - this.startTime;
+
+        this.progress = time / this.fixTime;
+
+        if (this.progress >= 1) {
+
+            this.progress = 1;
+
+        }
+
+    };
+
+    var Worker = function () {
+
+        this.fixTime = Math.floor(5000 * Math.random()) + 5000;
+        this.maxFix = 1;
+        this.fixArray = [];
+
+    };
+
+    proto = Worker.prototype;
+
+    proto.update = function () {
+
+        var i,
+        fix;
+
+        if (this.fixArray.length < this.maxFix) {
+
+            this.fixArray.push(new Fix(this.fixTime));
+
+        }
+
+    };
 
     // public state
     var pubState = {
