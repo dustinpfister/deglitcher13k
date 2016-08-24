@@ -13,13 +13,8 @@ var glitchIt = (function () {
 
     effects = [
 
+        // x gets set to 0, or home
         function (button) {
-
-            ////// var roll;
-
-            //// roll = Math.random();
-
-            //  if (roll > 0.9) {
 
             if (button.x === button.homeX) {
 
@@ -31,7 +26,13 @@ var glitchIt = (function () {
 
             }
 
-            //  }
+        },
+
+        // random x,y location
+        function (button) {
+
+            button.x = Math.round(Math.random() * (640 - button.w));
+            button.y = Math.round(Math.random() * (480 - button.h));
 
         }
 
@@ -39,7 +40,17 @@ var glitchIt = (function () {
 
     return function () {
 
-        var roll;
+        var roll,
+
+        maxEffect = Math.floor(game.pubState.level / 100 * 10);
+
+        if (maxEffect > effects.length) {
+
+            maxEffect = effects.length;
+
+        }
+
+        console.log(maxEffect);
 
         if (new Date() - lastGlitch >= glitchRate) {
 
@@ -49,7 +60,7 @@ var glitchIt = (function () {
 
                 if (roll > 0.9) {
 
-                    effects[0](button);
+                    effects[Math.floor(Math.random() * maxEffect)](button);
                 }
 
             });
