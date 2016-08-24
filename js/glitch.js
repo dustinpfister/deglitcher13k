@@ -8,7 +8,10 @@
 
 var glitchIt = (function () {
 
-    var effects = [
+    var lastGlitch = new Date(),
+    glitchRate = 30,
+
+    effects = [
 
         function () {
 
@@ -18,7 +21,7 @@ var glitchIt = (function () {
 
                 roll = Math.random();
 
-                if (roll > 0.5) {
+                if (roll > 0.9) {
 
                     if (button.x === button.homeX) {
 
@@ -40,7 +43,13 @@ var glitchIt = (function () {
 
     return function () {
 
-        effects[0].call(game.pubState);
+        if (new Date() - lastGlitch >= glitchRate) {
+
+            effects[0].call(game.pubState);
+
+            lastGlitch = new Date();
+
+        }
 
     };
 
