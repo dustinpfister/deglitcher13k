@@ -299,10 +299,10 @@ var game = (function () {
     setWave.call(pubState, 1);
 
     // setup buttons
-    pubState.buttons.push(new Shell.Button('fix', '', 200, 400, 64, 64));
-    pubState.buttons.push(new Shell.Button('wave', pubState, 300, 20, 200, 20));
-    pubState.buttons.push(new Shell.Button('level', pubState, 300, 40, 200, 20));
-    pubState.buttons.push(new Shell.Button('glitch', pubState, 300, 60, 200, 20));
+    pubState.buttons.push(new Shell.Button('fix', '', 20, 400, 64, 64));
+    pubState.buttons.push(new Shell.Button('wave', pubState, 20, 20, 200, 20));
+    pubState.buttons.push(new Shell.Button('level', pubState, 20, 40, 200, 20));
+    pubState.buttons.push(new Shell.Button('glitch', pubState, 20, 60, 200, 20));
 
     // return the public API to the game global variable
     return pubAPI;

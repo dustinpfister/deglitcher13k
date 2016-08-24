@@ -10,16 +10,16 @@ var glitchIt = (function () {
 
     var lastGlitch = new Date(),
     glitchRate = 1000,
-    glitchChance = 0.8,
+    glitchChance = 0,
 
     effects = [
 
-        // x gets set to 0, or home
+        // x gets set to 75, or home
         function (button) {
 
             if (button.x === button.homeX) {
 
-                button.x = 10;
+                button.x = 75;
 
             } else {
 
