@@ -9,8 +9,8 @@
 var glitchIt = (function () {
 
     var lastGlitch = new Date(),
-    glitchRate = 100,
-    glitchChance = 0.4,
+    glitchRate = 500,
+    glitchChance = 0.8,
 
     effects = [
 
@@ -51,13 +51,17 @@ var glitchIt = (function () {
 
         }
 
+        glitchChance = 0.9 * game.pubState.glitch / game.pubState.gOutOf;
+
+        console.log( glitchChance);
+
         if (new Date() - lastGlitch >= glitchRate) {
 
             game.pubState.buttons.forEach(function (button) {
 
                 roll = Math.random();
 
-                if (roll > glitchChance) {
+                if (roll < glitchChance) {
 
                     effects[Math.floor(Math.random() * maxEffect)](button);
                 }
