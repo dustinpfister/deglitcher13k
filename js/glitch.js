@@ -53,7 +53,7 @@ var glitchIt = (function () {
 
         glitchChance = 0.9 * game.pubState.glitch / game.pubState.gOutOf;
 
-        console.log( glitchChance);
+        console.log(glitchChance);
 
         if (new Date() - lastGlitch >= glitchRate) {
 
@@ -64,6 +64,11 @@ var glitchIt = (function () {
                 if (roll < glitchChance) {
 
                     effects[Math.floor(Math.random() * maxEffect)](button);
+
+                } else {
+
+                    button.setHome();
+
                 }
 
             });

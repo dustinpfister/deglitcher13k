@@ -60,6 +60,14 @@ var Shell = (function () {
 
         return this.id;
 
+    };
+
+    // set the button to its home pos
+    proto.setHome = function () {
+
+        this.x = this.homeX;
+        this.y = this.homeY;
+
     }
 
     return pubAPI;
