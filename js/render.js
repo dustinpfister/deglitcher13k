@@ -54,9 +54,14 @@ var render = (function () {
 
             var state = game.pubState;
 
-            // fix yourself
-            ctx.strokeRect(10, 400, 64, 64);
-            ctx.strokeText('fix', 42, 420);
+            // draw current state of all buttons
+            state.buttons.forEach(function (button) {
+
+                ctx.strokeRect(button.x, button.y, button.w, button.h);
+                ctx.strokeText(button.disp, button.x + button.w/2, button.y + button.h / 2 - 10);
+
+
+            });
 
             // self fix bar(s)
             ctx.fillStyle = 'rgba(0,255,255,.2)';
@@ -70,18 +75,18 @@ var render = (function () {
             ctx.fillStyle = 'rgba(255,255,255,.2)';
             state.workers.current.forEach(function (worker) {
 
-                worker.fixArray.forEach(function(fix){
+                worker.fixArray.forEach(function (fix) {
 
-                ctx.fillRect(0, 470, 640 * fix.progress, 10);
+                    ctx.fillRect(0, 470, 640 * fix.progress, 10);
 
                 });
 
             });
 
             ctx.textAlign = 'left';
-            ctx.strokeText('wave:' + state.wave+';', 10, 20);
-            ctx.strokeText('level : '+state.level+', exp: ' + state.exp+';', 10, 40);
-            ctx.strokeText('glitches: ' + state.glitch+';', 10, 60);
+            ctx.strokeText('wave:' + state.wave + ';', 10, 20);
+            ctx.strokeText('level : ' + state.level + ', exp: ' + state.exp + ';', 10, 40);
+            ctx.strokeText('glitches: ' + state.glitch + ';', 10, 60);
 
         }
     },

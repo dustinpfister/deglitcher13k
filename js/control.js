@@ -49,7 +49,15 @@ var control = (function () {
 
         game : function (pos, e) {
 
-            if (Shell.boundingBox(pos.x, pos.y, 1, 1, 10, 400, 64, 64)) {
+            //if (Shell.boundingBox(pos.x, pos.y, 1, 1, 10, 400, 64, 64)) {
+
+            //    game.fix();
+
+            //}
+			
+			var button = game.getButton('fix');
+			
+			if (Shell.boundingBox(pos.x, pos.y, 1, 1, button.x, button.y, button.w, button.h)) {
 
                 game.fix();
 

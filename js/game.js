@@ -34,6 +34,7 @@ var game = (function () {
 
     };
 
+    // The Worker Class
     var Worker = function () {
 
         this.fixTime = Math.floor(5000 * Math.random()) + 5000;
@@ -56,6 +57,8 @@ var game = (function () {
         }
 
     };
+
+    var Button
 
     // public state
     var pubState = {
@@ -85,7 +88,9 @@ var game = (function () {
             max : 0,
             current : []// current list of workers
 
-        }
+        },
+
+        buttons : []
 
     },
 
@@ -131,6 +136,24 @@ var game = (function () {
     pubAPI = {
 
         pubState : pubState,
+
+        // get a button by its id
+        getButton : function (id) {
+
+            var i = pubState.buttons.length;
+            while (i--) {
+
+                if (pubState.buttons[i].id === id) {
+
+                    return pubState.buttons[i];
+
+                }
+
+            }
+
+            return {};
+
+        },
 
         // deglitch a count of glitches
         deglitch : function (count) {
@@ -272,6 +295,9 @@ var game = (function () {
 
     // defaut to wave 1
     setWave.call(pubState, 1);
+
+    // setup buttons
+    pubState.buttons.push(new Shell.Button('fix', 200, 400, 64, 64))
 
     // return the public API to the game global variable
     return pubAPI;

@@ -8,22 +8,42 @@
  *
  */
 
-var Shell = {
+var Shell = (function () {
 
-    // your basic bounding box collision detection
-    boundingBox : function (x1, y1, w1, h1, x2, y2, w2, h2) {
+    var pubAPI = {
 
-        // if the two objects do not overlap
-        if ((x1 > x2 + w2) || (x1 + w1 < x2) || (y1 + h1 < y2) || (y1 > y2 + h2)) {
+        // your basic bounding box collision detection
+        boundingBox : function (x1, y1, w1, h1, x2, y2, w2, h2) {
 
-            //then they do not overlap
-            return false;
+            // if the two objects do not overlap
+            if ((x1 > x2 + w2) || (x1 + w1 < x2) || (y1 + h1 < y2) || (y1 > y2 + h2)) {
+
+                //then they do not overlap
+                return false;
+
+            }
+
+            // else they do
+            return true;
+
+        },
+
+        // Button Constructor.
+        Button : function (id,x,y,w,h) {
+
+            this.id = id;
+            this.disp = this.id;
+
+            this.x = x;
+            this.y = y;
+            this.w = w;
+            this.h = h;
 
         }
 
-        // else they do
-        return true;
+    };
 
-    }
+    return pubAPI;
 
-};
+}
+    ());
