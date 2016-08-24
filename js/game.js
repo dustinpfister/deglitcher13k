@@ -298,6 +298,7 @@ var game = (function () {
 
     // setup buttons
     pubState.buttons.push(new Shell.Button('fix', 200, 400, 64, 64))
+	pubState.buttons.push(new Shell.Button('info1', 300, 40, 200, 64))
 
     // return the public API to the game global variable
     return pubAPI;

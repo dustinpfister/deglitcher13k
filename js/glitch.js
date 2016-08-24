@@ -12,21 +12,27 @@ var glitchIt = (function () {
 
         function () {
 
-            var roll = Math.random();
+            var roll;
 
-            if (roll > 0.5) {
+            this.buttons.forEach(function (button) {
 
-                if (this.buttons[0].x === this.buttons[0].homeX) {
+                roll = Math.random();
 
-                    this.buttons[0].x = 10;
+                if (roll > 0.5) {
 
-                } else {
+                    if (button.x === button.homeX) {
 
-                    this.buttons[0].x = this.buttons[0].homeX;
+                        button.x = 10;
+
+                    } else {
+
+                        button.x = button.homeX;
+
+                    }
 
                 }
 
-            }
+            });
 
         }
 
