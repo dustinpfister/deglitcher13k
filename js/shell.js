@@ -29,10 +29,10 @@ var Shell = (function () {
         },
 
         // Button Constructor.
-        Button : function (id, x, y, w, h) {
+        Button : function (id, dispObj, x, y, w, h) {
 
             this.id = id;
-            this.disp = this.id;
+            this.dispObj = dispObj;
 
             this.x = x;
             this.y = y;
@@ -45,7 +45,22 @@ var Shell = (function () {
 
         }
 
-    };
+    },
+
+    proto = pubAPI.Button.prototype;
+
+    // return the text to be rendered
+    proto.text = function () {
+
+        if (this.dispObj) {
+
+            return this.id + ':' + this.dispObj[this.id];
+
+        }
+
+        return this.id;
+
+    }
 
     return pubAPI;
 

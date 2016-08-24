@@ -58,7 +58,7 @@ var render = (function () {
             state.buttons.forEach(function (button) {
 
                 ctx.strokeRect(button.x, button.y, button.w, button.h);
-                ctx.strokeText(button.disp, button.x + button.w/2, button.y + button.h / 2 - 10);
+                ctx.strokeText(button.text(), button.x + button.w/2, button.y + button.h / 2 - 10);
 
 
             });
@@ -83,10 +83,10 @@ var render = (function () {
 
             });
 
-            ctx.textAlign = 'left';
-            ctx.strokeText('wave:' + state.wave + ';', 10, 20);
-            ctx.strokeText('level : ' + state.level + ', exp: ' + state.exp + ';', 10, 40);
-            ctx.strokeText('glitches: ' + state.glitch + ';', 10, 60);
+            //ctx.textAlign = 'left';
+            //ctx.strokeText('wave:' + state.wave + ';', 10, 20);
+            //ctx.strokeText('level : ' + state.level + ', exp: ' + state.exp + ';', 10, 40);
+            //ctx.strokeText('glitches: ' + state.glitch + ';', 10, 60);
 
         }
     },
