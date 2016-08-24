@@ -15,23 +15,23 @@ var glitchIt = (function () {
 
         function (button) {
 
-            var roll;
+            ////// var roll;
 
-            roll = Math.random();
+            //// roll = Math.random();
 
-            if (roll > 0.9) {
+            //  if (roll > 0.9) {
 
-                if (button.x === button.homeX) {
+            if (button.x === button.homeX) {
 
-                    button.x = 10;
+                button.x = 10;
 
-                } else {
+            } else {
 
-                    button.x = button.homeX;
-
-                }
+                button.x = button.homeX;
 
             }
+
+            //  }
 
         }
 
@@ -39,11 +39,18 @@ var glitchIt = (function () {
 
     return function () {
 
+        var roll;
+
         if (new Date() - lastGlitch >= glitchRate) {
 
             game.pubState.buttons.forEach(function (button) {
 
-                effects[0](button);
+                roll = Math.random();
+
+                if (roll > 0.9) {
+
+                    effects[0](button);
+                }
 
             });
 
