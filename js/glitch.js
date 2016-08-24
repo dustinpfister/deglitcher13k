@@ -10,6 +10,7 @@ var glitchIt = (function () {
 
     var lastGlitch = new Date(),
     glitchRate = 100,
+    glitchChance = 0.4,
 
     effects = [
 
@@ -42,7 +43,7 @@ var glitchIt = (function () {
 
         var roll,
 
-        maxEffect = Math.floor(game.pubState.level / 100 * 10);
+        maxEffect = Math.floor(game.pubState.level / 100 * 10) + 1;
 
         if (maxEffect > effects.length) {
 
@@ -50,15 +51,13 @@ var glitchIt = (function () {
 
         }
 
-        console.log(maxEffect);
-
         if (new Date() - lastGlitch >= glitchRate) {
 
             game.pubState.buttons.forEach(function (button) {
 
                 roll = Math.random();
 
-                if (roll > 0.9) {
+                if (roll > glitchChance) {
 
                     effects[Math.floor(Math.random() * maxEffect)](button);
                 }
