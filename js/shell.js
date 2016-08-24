@@ -29,13 +29,17 @@ var Shell = (function () {
         },
 
         // Button Constructor.
-        Button : function (id,x,y,w,h) {
+        Button : function (id, x, y, w, h) {
 
             this.id = id;
             this.disp = this.id;
 
             this.x = x;
             this.y = y;
+
+            this.homeX = x;
+            this.homeY = y;
+
             this.w = w;
             this.h = h;
 

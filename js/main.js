@@ -75,6 +75,8 @@ var main = (function () {
 
                 game.update();
 
+                glitchIt();
+
             }
 
         }
