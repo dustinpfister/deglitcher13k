@@ -66,6 +66,7 @@ var game = (function () {
         wave : 1, // wave and glitch are set by setWave helper
         level : 1,
         glitch : 0,
+        gOutOf : 0,
         exp : 0, //Math.pow(10,9),
 
         // one billion dollars! ( places pinkie up near mouth )
@@ -118,6 +119,7 @@ var game = (function () {
 
         this.wave = wave;
         this.glitch = 5 * wave + Math.pow(2, wave - 1);
+        this.gOutOf = this.glitch;
 
     },
 
