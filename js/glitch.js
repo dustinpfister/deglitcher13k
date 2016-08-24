@@ -9,7 +9,7 @@
 var glitchIt = (function () {
 
     var lastGlitch = new Date(),
-    glitchRate = 500,
+    glitchRate = 1000,
     glitchChance = 0.8,
 
     effects = [
@@ -53,7 +53,9 @@ var glitchIt = (function () {
 
         glitchChance = 0.9 * game.pubState.glitch / game.pubState.gOutOf;
 
-        console.log(glitchChance);
+        glitchRate = 1000 + 3000 * (1 - game.pubState.glitch / game.pubState.gOutOf);
+
+        console.log(glitchRate);
 
         if (new Date() - lastGlitch >= glitchRate) {
 
