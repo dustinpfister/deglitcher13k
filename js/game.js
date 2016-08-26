@@ -246,6 +246,9 @@ var game = (function () {
         // what to do on each frame tick
         update : function () {
 
+            var i,
+            button;
+
             this.fix.tick();
 
             setByExp.call(pubState);
@@ -289,6 +292,16 @@ var game = (function () {
 
             }
 
+            i = 6;
+            while (i--) {
+
+                button = this.getButton('bx' + i);
+
+                button.homeX = 320;
+                button.homeY = 240;
+
+            }
+
         }
 
     };
@@ -301,6 +314,14 @@ var game = (function () {
     pubState.buttons.push(new Shell.Button('wave', pubState, 20, 20, 200, 20));
     pubState.buttons.push(new Shell.Button('level', pubState, 20, 40, 200, 20));
     pubState.buttons.push(new Shell.Button('glitch', pubState, 20, 60, 200, 20));
+
+    // bx buttons are for the little animation that reperesents the game working they way it should.
+    var i = 6;
+    while (i--) {
+
+        pubState.buttons.push(new Shell.Button('bx' + i, '', 0, 0, 32, 32));
+
+    }
 
     // return the public API to the game global variable
     return pubAPI;
