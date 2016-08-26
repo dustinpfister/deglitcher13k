@@ -8,6 +8,23 @@
 
 var game = (function () {
 
+    // set bx helper
+    var setBX = function (i) {
+
+        var i = 6, rad, button;
+
+        while (i--) {
+
+            button = pubAPI.getButton('bx' + i);
+            rad = Math.PI * 2 / 6 * i;
+
+            button.homeX = Math.cos(rad) * 100 + 304;
+            button.homeY = Math.sin(rad) * 100 + 224;
+
+        }
+
+    };
+
     // the fix Class
     var Fix = function (fixTime) {
 
@@ -246,9 +263,6 @@ var game = (function () {
         // what to do on each frame tick
         update : function () {
 
-            var i,rad,
-            button;
-
             this.fix.tick();
 
             setByExp.call(pubState);
@@ -292,16 +306,7 @@ var game = (function () {
 
             }
 
-            i = 6;
-            while (i--) {
-
-                button = this.getButton('bx' + i);
-				rad = Math.PI * 2 / 6 * i;
-
-                button.homeX = Math.cos(rad) * 100 + 304;
-                button.homeY = Math.sin(rad) * 100 + 224;
-
-            }
+            setBX();
 
         }
 
@@ -323,6 +328,8 @@ var game = (function () {
         pubState.buttons.push(new Shell.Button('bx' + i, '', 0, 0, 32, 32));
 
     }
+
+    setBX();
 
     // return the public API to the game global variable
     return pubAPI;
