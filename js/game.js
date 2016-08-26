@@ -246,7 +246,7 @@ var game = (function () {
         // what to do on each frame tick
         update : function () {
 
-            var i,
+            var i,rad,
             button;
 
             this.fix.tick();
@@ -296,9 +296,10 @@ var game = (function () {
             while (i--) {
 
                 button = this.getButton('bx' + i);
+				rad = Math.PI * 2 / 6 * i;
 
-                button.homeX = 320;
-                button.homeY = 240;
+                button.homeX = Math.cos(rad) * 100 + 304;
+                button.homeY = Math.sin(rad) * 100 + 224;
 
             }
 
