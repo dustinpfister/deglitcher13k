@@ -11,8 +11,9 @@ var game = (function () {
     // set bx helper
     var setBX = function (i) {
 
-        var i = 6, rad, button;
-
+        var i = 6,
+        rad,
+        button;
         while (i--) {
 
             button = pubAPI.getButton('bx' + i);
@@ -135,6 +136,15 @@ var game = (function () {
         this.wave = wave;
         this.glitch = 5 * wave + Math.pow(2, wave - 1);
         this.gOutOf = this.glitch;
+
+        this.buttons.forEach(function (button) {
+
+            button.x = button.homeX;
+            button.y = button.homeY;
+
+            console.log(button);
+
+        });
 
     },
 
@@ -312,9 +322,6 @@ var game = (function () {
 
     };
 
-    // defaut to wave 1
-    setWave.call(pubState, 1);
-
     // setup buttons
     pubState.buttons.push(new Shell.Button('fix', '', 20, 400, 64, 64));
     pubState.buttons.push(new Shell.Button('wave', pubState, 20, 20, 200, 20));
@@ -325,11 +332,14 @@ var game = (function () {
     var i = 6;
     while (i--) {
 
-        pubState.buttons.push(new Shell.Button('bx' + i, '', 0, 0, 32, 32));
+        pubState.buttons.push(new Shell.Button('bx' + i, '', 20, 20, 32, 32));
 
     }
 
     setBX();
+
+    // defaut to wave 1
+    setWave.call(pubState, 1);
 
     // return the public API to the game global variable
     return pubAPI;
