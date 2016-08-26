@@ -44,6 +44,7 @@ var Shell = (function () {
             this.h = h;
 
             this.glitched = 0;
+            this.count = 0;
 
         }
 

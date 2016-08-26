@@ -14,18 +14,10 @@ var glitchIt = (function () {
 
     effects = [
 
-        // x gets set to 75, or home
+        // x gets set to 0
         function (button) {
 
-            if (button.x === button.homeX) {
-
-                button.x = 75;
-
-            } else {
-
-                button.x = button.homeX;
-
-            }
+                button.x = 0;
 
         },
 
@@ -68,10 +60,18 @@ var glitchIt = (function () {
 
             // if button.glitched > 0
             if (button.glitched) {
-				
-				effects[button.glitched - 1](button);
-				
-			}else {
+
+                effects[button.glitched - 1](button);
+
+                button.count -= 1;
+
+                if (button.count <= 0) {
+
+                    button.glitched = 0;
+
+                }
+
+            } else {
 
                 button.setHome();
 
@@ -86,6 +86,8 @@ var glitchIt = (function () {
                     //effects[Math.floor(Math.random() * maxEffect)](button);
 
                     button.glitched = Math.floor(Math.random() * maxEffect) + 1;
+
+                    button.count = 10;
 
                 }
             }
