@@ -55,8 +55,6 @@ var glitchIt = (function () {
 
         glitchRate = 1000 + 3000 * (1 - game.pubState.glitch / game.pubState.gOutOf);
 
-        console.log(glitchRate);
-
         if (new Date() - lastGlitch >= glitchRate) {
 
             game.pubState.buttons.forEach(function (button) {

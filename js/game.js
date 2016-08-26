@@ -58,8 +58,6 @@ var game = (function () {
 
     };
 
-    var Button
-
     // public state
     var pubState = {
 

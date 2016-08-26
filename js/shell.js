@@ -68,7 +68,7 @@ var Shell = (function () {
         this.x = this.homeX;
         this.y = this.homeY;
 
-    }
+    };
 
     return pubAPI;
 
