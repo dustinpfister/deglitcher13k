@@ -14,10 +14,24 @@ var glitchIt = (function () {
 
     effects = [
 
+        // go in a random angle for count
+        function (button) {
+
+            if (button.count === button.maxCount) {
+
+                button.rad = Math.PI * 2 * Math.random();
+
+            }
+
+            button.x = Math.cos(button.rad) * 5 * (button.maxCount - button.count) + button.homeX;
+            button.y = Math.sin(button.rad) * 5 * (button.maxCount - button.count) + button.homeY;
+
+        },
+
         // x gets set to 0
         function (button) {
 
-                button.x = 0;
+            button.x = 0;
 
         },
 
@@ -87,7 +101,8 @@ var glitchIt = (function () {
 
                     button.glitched = Math.floor(Math.random() * maxEffect) + 1;
 
-                    button.count = 10;
+                    button.maxCount = 10;
+                    button.count = button.maxCount;
 
                 }
             }

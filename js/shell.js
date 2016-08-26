@@ -45,6 +45,7 @@ var Shell = (function () {
 
             this.glitched = 0;
             this.count = 0;
+            this.maxCount = 0;
 
         }
 
