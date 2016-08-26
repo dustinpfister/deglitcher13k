@@ -53,7 +53,7 @@ var glitchIt = (function () {
 
         }
 
-        glitchChance = 0.9 * game.pubState.glitch / game.pubState.gOutOf;
+        glitchChance = 0.3 * game.pubState.glitch / game.pubState.gOutOf;
 
         glitchRate = 1000 + 3000 * (1 - game.pubState.glitch / game.pubState.gOutOf);
 
@@ -66,7 +66,16 @@ var glitchIt = (function () {
 
         game.pubState.buttons.forEach(function (button) {
 
-            button.setHome();
+            // if button.glitched > 0
+            if (button.glitched) {
+				
+				effects[button.glitched - 1](button);
+				
+			}else {
+
+                button.setHome();
+
+            }
 
             if (glitchStart) {
 
@@ -74,37 +83,14 @@ var glitchIt = (function () {
 
                 if (roll < glitchChance) {
 
-                    effects[Math.floor(Math.random() * maxEffect)](button);
+                    //effects[Math.floor(Math.random() * maxEffect)](button);
+
+                    button.glitched = Math.floor(Math.random() * maxEffect) + 1;
 
                 }
             }
 
         });
-
-        /*
-        if (new Date() - lastGlitch >= glitchRate) {
-
-        game.pubState.buttons.forEach(function (button) {
-
-        roll = Math.random();
-
-        if (roll < glitchChance) {
-
-        effects[Math.floor(Math.random() * maxEffect)](button);
-
-        } else {
-
-        button.setHome();
-
-        }
-
-        });
-
-        lastGlitch = new Date();
-
-        }
-
-         */
 
     };
 

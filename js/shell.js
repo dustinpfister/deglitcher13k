@@ -43,7 +43,7 @@ var Shell = (function () {
             this.w = w;
             this.h = h;
 
-            this.glitched = false;
+            this.glitched = 0;
 
         }
 
