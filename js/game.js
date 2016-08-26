@@ -9,7 +9,7 @@
 var game = (function () {
 
     // set bx helper
-    var setBX = function (i) {
+    var setBX = function (offset) {
 
         var i = 6,
         rad,
@@ -19,8 +19,8 @@ var game = (function () {
             button = pubAPI.getButton('bx' + i);
             rad = Math.PI * 2 / 6 * i;
 
-            button.homeX = Math.cos(rad) * 100 + 304;
-            button.homeY = Math.sin(rad) * 100 + 224;
+            button.homeX = Math.cos(rad + offset) * 100 + 304;
+            button.homeY = Math.sin(rad + offset) * 100 + 224;
 
         }
 
@@ -271,54 +271,70 @@ var game = (function () {
             ()),
 
         // what to do on each frame tick
-        update : function () {
+        update : (function () {
 
-            this.fix.tick();
+            var offset = 0,
+            rate = Math.PI / 180;
 
-            setByExp.call(pubState);
+            return function () {
 
-            // workers
-            if (pubState.workers.current.length < pubState.workers.max) {
+                this.fix.tick();
 
-                pubState.workers.current.push(new Worker());
+                setByExp.call(pubState);
 
-            }
+                // workers
+                if (pubState.workers.current.length < pubState.workers.max) {
 
-            pubState.workers.current.forEach(function (worker) {
-
-                var i,
-                fix;
-
-                worker.update();
-
-                i = worker.fixArray.length;
-                while (i--) {
-
-                    fix = worker.fixArray[i];
-
-                    fix.update();
-
-                    if (fix.progress === 1) {
-
-                        pubAPI.deglitch(1);
-
-                        worker.fixArray.splice(i, 1)
-
-                    }
+                    pubState.workers.current.push(new Worker());
 
                 }
 
-            });
+                pubState.workers.current.forEach(function (worker) {
 
-            if (pubState.glitch === 0) {
+                    var i,
+                    fix;
 
-                onWin.call(pubState);
+                    worker.update();
 
-            }
+                    i = worker.fixArray.length;
+                    while (i--) {
 
-            setBX();
+                        fix = worker.fixArray[i];
+
+                        fix.update();
+
+                        if (fix.progress === 1) {
+
+                            pubAPI.deglitch(1);
+
+                            worker.fixArray.splice(i, 1)
+
+                        }
+
+                    }
+
+                });
+
+                if (pubState.glitch === 0) {
+
+                    onWin.call(pubState);
+
+                }
+
+                setBX(offset);
+
+                offset += rate;
+
+                if (offset >= Math.PI * 2) {
+
+                    offset -= Math.PI * 2;
+
+                }
+
+            };
 
         }
+            ())
 
     };
 
@@ -332,11 +348,11 @@ var game = (function () {
     var i = 6;
     while (i--) {
 
-        pubState.buttons.push(new Shell.Button('bx' + i, '', 20, 20, 32, 32));
+        pubState.buttons.push(new Shell.Button('bx' + i, '', 0, 0, 32, 32));
 
     }
 
-    setBX();
+    setBX(0);
 
     // defaut to wave 1
     setWave.call(pubState, 1);
