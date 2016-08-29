@@ -19,7 +19,7 @@ var render = (function () {
 
         // just bg and fg colors
         ctx.fillStyle = '#000000';
-        ctx.strokeStyle = '#00ffff';
+        ctx.strokeStyle = '#00ff00';
 
         // text
         ctx.font = '20px courier';
